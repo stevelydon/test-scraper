@@ -10,9 +10,9 @@ Small test project. Scrapes data from HackerNews. Store/view/filter the data.
 - npm run test
 
 ### Routes
-http://localhost:3000  - Simple homepage (links to other routes)
-http://localhost:3000/v1/json  -   Scrape HackerNews and return JSON data
-http://localhost:3000/v1/view  -   Scrape and return data in simple HTML tables(using ejs)
+- http://localhost:3000  - Simple homepage (links to other routes)
+- http://localhost:3000/v1/json  -   Scrape HackerNews and return JSON data
+- http://localhost:3000/v1/view  -   Scrape and return data in simple HTML tables(using ejs)
 
 ### Tech Used
 - express to serve the JSON data
