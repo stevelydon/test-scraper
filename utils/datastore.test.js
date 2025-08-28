@@ -6,11 +6,25 @@ describe('datastore test',()=>{
 
 	beforeEach(async()=>{
 		posts = await scraper.scrapeHackerNews();
+		datastore.storePosts(posts);
 	});
 
 	test('check posts are stored and returned as 30 items',()=>{
-		datastore.storePosts(posts);
 		const testQuery = datastore.getAllPosts();
 		expect(testQuery.length).toBe(30);
 	});
+
+	test('check last posts are retrieved', ()=>{
+		const testQuery = datastore.getLastPosts();
+		expect(testQuery.length).toBe(30);
+	});
+
+	test('check filters are working', ()=>{
+		const testQueryGT5 = datastore.getLastPostsGT5();
+		const testQueryEqualOrLT5 = datastore.getLastPostsEqualOrLT5();
+		
+		expect(testQueryGT5.length + testQueryEqualOrLT5.length).toBe(30);
+
+	});
+
 });

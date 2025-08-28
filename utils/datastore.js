@@ -13,8 +13,7 @@ CREATE TABLE posts(
 	) STRICT 
 `);
 
-const insertPost = db.prepare('INSERT INTO posts(request_id,request_timestamp,rank,title, points, comment_count, title_word_count) VALUES(?,?,?,?,?,?,?)');
-const queryGetAll = db.prepare('SELECT * FROM posts ORDER BY request_id DESC,rank');
+const insertPost = db.prepare('INSERT INTO posts(request_id,request_timestamp,rank,title, points, comment_count, title_word_count) VALUES(?,?,?,?,?,?,?);');
 let requestID = 0;
 function storePosts(postData){
 	try{
@@ -29,11 +28,30 @@ function storePosts(postData){
 	}
 }
 
+const queryGetAll = db.prepare('SELECT * FROM posts ORDER BY request_id DESC,rank;');
 function getAllPosts(){
 	return queryGetAll.all();	
 }
 
+const queryGetLast = db.prepare('SELECT * FROM posts WHERE request_id = ? ORDER BY rank;');
+function getLastPosts(){
+	return queryGetLast.all(requestID);
+}
+
+const queryGetLastGreaterThan = db.prepare('SELECT * FROM posts WHERE request_id = ? AND title_word_count > ? ORDER BY comment_count');
+function getLastPostsGT5(){
+	return queryGetLastGreaterThan.all(requestID,5);
+}
+
+const queryGetLastEqualOrLT = db.prepare('SELECT * FROM posts WHERE request_id = ? AND title_word_count <= ? ORDER BY points;');
+function getLastPostsEqualOrLT5(){
+	return queryGetLastEqualOrLT.all(requestID,5);
+}
+
 module.exports = {
 	storePosts,
-	getAllPosts
+	getAllPosts,
+	getLastPosts,
+	getLastPostsGT5,
+	getLastPostsEqualOrLT5
 }
