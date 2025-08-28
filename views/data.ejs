@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+table {
+  table-layout: fixed;
+  min-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+section{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+th,
+td {
+  padding: 0.2em;
+}
+
+</style>
+</head>
+<body>
+<main>
+	<section>
+		<table>
+			<tr>
+				<th>All Post - Last Request</th>
+			</tr>
+			<tr>
+				<th>Rank</th>
+				<th>Title</th>
+				<th>Points</th>
+				<th>No.Comments</th>
+				<th>Title Word Count</th>
+				<th>Time Of Request</th>
+				<th>Request ID</th>
+			</tr>
+			<% postData.allLastPosts.forEach(function(post) { %>
+			<tr>
+				<td><%= post.rank %></td>
+				<td><%= post.title %></td>
+				<td><%= post.points %></td>
+				<td><%= post.comment_count %></td>
+				<td><%= post.title_word_count %></td>
+				<td><%= new Date(parseInt(post.request_timestamp)).toString() %></td>
+				<td><%= post.request_id %></td>
+			</tr>
+			<% }); %>
+		</table>
+	</section>
+	<section>
+		<table>
+			<tr>
+				<th>Title Word Count Greater Than 5 - Last Request</th>
+			</tr>
+			<tr>
+				<th>Rank</th>
+				<th>Title</th>
+				<th>Points</th>
+				<th>No.Comments</th>
+				<th>Title Word Count</th>
+				<th>Time Of Request</th>
+				<th>Request ID</th>
+			</tr>
+			<% postData.lastPostsGT5.forEach(function(post) { %>
+			<tr>
+				<td><%= post.rank %></td>
+				<td><%= post.title %></td>
+				<td><%= post.points %></td>
+				<td><%= post.comment_count %></td>
+				<td><%= post.title_word_count %></td>
+				<td><%= new Date(parseInt(post.request_timestamp)).toString() %></td>
+				<td><%= post.request_id %></td>
+			</tr>
+			<% }); %>
+		</table>
+	</section>
+	<section>
+		<table>
+			<tr>
+				<th>Title Word Less Than Or Equal To 5 - Last Request</th>
+			</tr>
+			<tr>
+				<th>Rank</th>
+				<th>Title</th>
+				<th>Points</th>
+				<th>No.Comments</th>
+				<th>Title Word Count</th>
+				<th>Time Of Request</th>
+				<th>Request ID</th>
+			</tr>
+			<% postData.lastPostsEqualOrLT5.forEach(function(post) { %>
+			<tr>
+				<td><%= post.rank %></td>
+				<td><%= post.title %></td>
+				<td><%= post.points %></td>
+				<td><%= post.comment_count %></td>
+				<td><%= post.title_word_count %></td>
+				<td><%= new Date(parseInt(post.request_timestamp)).toString() %></td>
+				<td><%= post.request_id %></td>
+			</tr>
+			<% }); %>
+		</table>
+	</section>
+</main>
+
+<footer>
+</footer>
+
+</body>
+</html>

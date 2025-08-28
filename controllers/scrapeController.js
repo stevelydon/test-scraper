@@ -1,29 +1,33 @@
 const scraper = require('../utils/scraper.js');
 const datastore = require('../utils/datastore.js');
 
-function home(req,res,next){
-	res.send("HOME");
-}
-
 async function json(req,res,next){
-	const scrapedPosts = await scraper.scrapeHackerNews();
-	datastore.storePosts(scrapedPosts);
-
-	const allLastPosts = await datastore.getLastPosts();
-	const lastPostsGT5 = await datastore.getLastPostsGT5();
-	const lastPostsEqualOrLT5 = await datastore.getLastPostsEqualOrLT5();
-
+	const data = await getScrapeData();
 	res.setHeader('Content-Type','application/json');
-	const fullResponse = {allLastPosts,lastPostsGT5, lastPostsEqualOrLT5};
-	res.send(JSON.stringify(fullResponse));
+	res.send(JSON.stringify(data));
 }
 
-function view(req,res,next){
-	res.send("VIEW");
+async function view(req,res,next){
+	const postData = await getScrapeData();
+	res.render('../views/data', {postData});
+}
+
+async function getScrapeData(){
+	let data = {};
+	try{
+		const scrapedPosts = await scraper.scrapeHackerNews();
+		datastore.storePosts(scrapedPosts);
+		const allLastPosts = await datastore.getLastPosts();
+		const lastPostsGT5 = await datastore.getLastPostsGT5();
+		const lastPostsEqualOrLT5 = await datastore.getLastPostsEqualOrLT5();	
+		data = {allLastPosts,lastPostsGT5, lastPostsEqualOrLT5};
+	}catch(err){
+		console.log(err.message);
+	}
+	return data;
 }
 
 module.exports = {
-	home,
 	json,
 	view
 }

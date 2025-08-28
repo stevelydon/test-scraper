@@ -4,14 +4,10 @@ const wordCount = require('./wordCount.js');
 async function scrapeHackerNews(){
 	const posts = [];
 	
-	const parsedHeadlines = [];
-	const parsedSublines = [];
-
 	try{
 		const $ = await cheerio.fromURL("https://news.ycombinator.com/");
-
-		//change to split extracts, found bug in previous method
-		//sometimes missing points and/or comments. The subline html changes drastically
+		const parsedHeadlines = [];
+		const parsedSublines = [];
 		$('.submission').each( function(index,element){
 
 			parsedHeadlines.push($(element).extract({
