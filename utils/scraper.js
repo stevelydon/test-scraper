@@ -1,13 +1,11 @@
 const cheerio = require('cheerio');
 const wordCount = require('./wordCount.js');
-require('dotenv').config();
-
 
 async function scrapeHackerNews(){
 	const parsedPosts = [];
 	
 	try{
-		const $ = await cheerio.fromURL(process.env.HACKER_NEWS_URL);
+		const $ = await cheerio.fromURL("https://news.ycombinator.com/");
 		const posts = $.extract({
 			ranks:['.rank'],
 			titles:['.titleline > a'],
