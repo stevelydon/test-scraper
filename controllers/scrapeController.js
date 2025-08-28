@@ -8,9 +8,14 @@ function home(req,res,next){
 async function json(req,res,next){
 	const scrapedPosts = await scraper.scrapeHackerNews();
 	datastore.storePosts(scrapedPosts);
+
 	const allLastPosts = await datastore.getLastPosts();
+	const lastPostsGT5 = await datastore.getLastPostsGT5();
+	const lastPostsEqualOrLT5 = await datastore.getLastPostsEqualOrLT5();
+
 	res.setHeader('Content-Type','application/json');
-	res.send(JSON.stringify(allLastPosts));
+	const fullResponse = {allLastPosts,lastPostsGT5, lastPostsEqualOrLT5};
+	res.send(JSON.stringify(fullResponse));
 }
 
 function view(req,res,next){
