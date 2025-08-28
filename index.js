@@ -1,7 +1,6 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import scrapeRouter from './routes/scrapeRouter.js';
-dotenv.config();
+const express = require('express');
+const scrapeRouter = require('./routes/scrapeRouter.js');
+require('dotenv').config();
 
 const API_VERSION_URL = "/" + process.env.API_VERSION;
 

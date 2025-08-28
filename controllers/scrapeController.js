@@ -11,7 +11,7 @@ function view(req,res,next){
 	res.send("VIEW");
 }
 
-export default {
+module.exports = {
 	home,
 	json,
 	view
