@@ -1,5 +1,5 @@
 const scraper = require('./scraper.js');
-describe('test setup',()=>{
+describe('scraper test',()=>{
 	let scrapedData;
 	const expectedKeys = [
 		"rank",
