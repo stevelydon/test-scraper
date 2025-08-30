@@ -23,5 +23,7 @@ Small test project. Scrapes data from HackerNews. Store/view/filter the data.
 
 ### TODO
 - More test coverage
+- Optimize sqlite queries(mulitple inserts now)
+- Optimize scraper loop
 - Test home and data routes(html)
-- More css on home and data routes
+- More css on home and data pages
